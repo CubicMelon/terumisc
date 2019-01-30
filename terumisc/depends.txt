@@ -1,0 +1,6 @@
+default
+dye
+flowers
+walls
+trunks?
+doors?
