@@ -24,7 +24,7 @@ terumisc.version_text = ver.major .. '.' .. ver.minor .. '.' .. ver.patch
 terumisc.mod_name = "terumisc"
 
 -- this isn't the suggested way to check for game version but... it works for my purposes
-terumisc.legacy = minetest.get_version().string:find('0.4.17')
+terumisc.legacy = minetest.get_version().string:find('0.4')
 
 if terumisc.legacy then
     minetest.log('[terumisc] MTv0.4.17.* detected - in legacy mode!')

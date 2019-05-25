@@ -2,7 +2,7 @@ local lamp_tex = terumisc.tex('ov_lamp')
 local craft_edge = 'xpanes:pane_flat'
 local craft_center = 'default:mese_crystal'
 
-function register_nodelamp(basenode, suffix)
+local function register_nodelamp(basenode, suffix)
     local base_def = minetest.registered_nodes[basenode]
     if not base_def then error('basenode '..basenode..' is not defined') end
     local lamp_def = terumisc.clone_table(base_def)
