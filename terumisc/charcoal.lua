@@ -18,9 +18,9 @@ minetest.register_node(ccblock_id, {
 
 minetest.register_craft{
     type = 'cooking',
-    output = cc_id .. ' 2',
+    output = ccblock_id,
 	recipe = 'group:tree',
-	cooktime = 10,
+	cooktime = 30,
 }
 
 minetest.register_craft{

@@ -27,7 +27,7 @@ terumisc.mod_name = "terumisc"
 terumisc.legacy = minetest.get_version().string:find('0.4')
 
 if terumisc.legacy then
-    minetest.log('[terumisc] MTv0.4.17.* detected - in legacy mode!')
+    minetest.log('[terumisc] MTv0.4.* detected - in legacy mode!')
 end
 
 -- terumisc.RAND = PcgRandom(os.time())
