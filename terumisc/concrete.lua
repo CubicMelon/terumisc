@@ -25,7 +25,7 @@ end
 local function powder_name(dye_index)
     return FMT("%s Concrete Mix", dye.dyes[dye_index][2])
 end
-local function block_id(dye_index)
+function terumisc.concrete_block_id(dye_index)
     return FMT("%s_%s", conblock_baseid, dye.dyes[dye_index][1])
 end
 local function block_name(dye_index)
@@ -50,7 +50,7 @@ for index,dye_info in ipairs(dye.dyes) do
         sounds = default.node_sound_sand_defaults(),
     })
 
-    minetest.register_node(block_id(index), {
+    minetest.register_node(terumisc.concrete_block_id(index), {
         description = block_name(index),
         tiles = {block_texture(index)},
         is_ground_content = false,
@@ -71,7 +71,7 @@ for index,dye_info in ipairs(dye.dyes) do
         })
     end
 
-    HARDEN_LIST[powder_id(index)] = block_id(index)
+    HARDEN_LIST[powder_id(index)] = terumisc.concrete_block_id(index)
     terumisc.push(POWDER_LIST, powder_id(index))
 end
 

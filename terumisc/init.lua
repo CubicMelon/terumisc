@@ -105,6 +105,9 @@ terumisc.do_lua_file('nodelamp')
 
 terumisc.do_lua_file('concrete')
 
-if minetest.get_modpath('trunks') then
-    terumisc.do_lua_file('trunks')
+local OPTIONAL = {'trunks', 'terumet'}
+for _,mod in ipairs(OPTIONAL) do
+    if minetest.get_modpath(mod) then
+        terumisc.do_lua_file(mod)
+    end
 end
