@@ -18,6 +18,7 @@ This mod requires and depends on:
 * walls
 
 Optional dependencies:
+* terumet
 * trunks
 * doors
 
@@ -52,3 +53,4 @@ Optional dependencies:
     * Silver Sandstone Brick
     * Ice Brick Block*
     * Ice Cube*
+* When alongside my Terumetal mod, adds heatline and reinforced versions of blocks added by this mod.
