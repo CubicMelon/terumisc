@@ -94,10 +94,10 @@ local gravel_id = 'default:gravel'
 local silversand_id = 'default:silver_sand'
 
 minetest.register_craft{
-	output = powder_id(1)..' 8',
-	recipe = {
-		{sand_id, gravel_id, sand_id},
+    output = powder_id(1)..' 8',
+    recipe = {
+        {sand_id, gravel_id, sand_id},
         {silversand_id, '', silversand_id},
         {sand_id, gravel_id, sand_id}
-	}
+    }
 }
