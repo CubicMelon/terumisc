@@ -54,7 +54,7 @@ for index,dye_info in ipairs(dye.dyes) do
         description = block_name(index),
         tiles = {block_texture(index)},
         is_ground_content = false,
-        groups = {cracky = 2},
+        groups = {cracky = 2, level = 1},
         sounds = default.node_sound_stone_defaults(),
     })
 
@@ -76,7 +76,7 @@ for index,dye_info in ipairs(dye.dyes) do
 end
 
 minetest.register_abm{
-    label = 'Concrete powder hardening',
+    label = 'Concrete mix hardening',
     nodenames = POWDER_LIST,
     neighbors = {'default:water_source', 'default:water_flowing'},
     interval = 3.0, -- Run every 3 seconds
@@ -89,15 +89,14 @@ minetest.register_abm{
     end
 }
 
-local sand_id = 'default:sand'
 local gravel_id = 'default:gravel'
-local silversand_id = 'default:silver_sand'
+local any_sand = 'group:sand'
 
 minetest.register_craft{
     output = powder_id(1)..' 8',
     recipe = {
-        {sand_id, gravel_id, sand_id},
-        {silversand_id, '', silversand_id},
-        {sand_id, gravel_id, sand_id}
+        {any_sand, gravel_id, any_sand},
+        {gravel_id, '', gravel_id},
+        {any_sand, gravel_id, any_sand}
     }
 }
