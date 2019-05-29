@@ -54,6 +54,10 @@ function terumisc.id(id, number)
     end
 end
 
+function terumisc.push(tbl, item)
+    tbl[#tbl+1]=item
+end
+
 function terumisc.tex(id)
     -- accepts both base ids (assuming this mod) and full mod ids
     if id:match(':') then
@@ -64,7 +68,7 @@ function terumisc.tex(id)
 end
 
 function terumisc.recipe_3x3(i)
-    return { 
+    return {
         {i, i, i}, {i, i, i}, {i, i, i}
     }
 end
@@ -88,6 +92,7 @@ function terumisc.clone_table(t)
     return c_t
 end
 
+terumisc.DYE_COLORS = {}
 terumisc.do_lua_file('charcoal')
 
 terumisc.do_lua_file('dyes')
@@ -97,6 +102,8 @@ terumisc.do_lua_file('ice')
 terumisc.do_lua_file('walls')
 
 terumisc.do_lua_file('nodelamp')
+
+terumisc.do_lua_file('concrete')
 
 if minetest.get_modpath('trunks') then
     terumisc.do_lua_file('trunks')

@@ -1,1 +1,1 @@
-Terumisc v1 for Minetest 0.4.17 and 5 - Adds assorted minor things like charcoal, node lamps, ice materials, and additional walls.
+Terumisc v1 for Minetest 0.4.17 and 5 - Adds assorted minor things like charcoal, concrete, node lamps, ice materials, and additional walls.
