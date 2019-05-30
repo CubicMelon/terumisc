@@ -2,7 +2,7 @@ local lamp_tex = terumisc.tex('ov_lamp')
 local craft_edge = 'xpanes:pane_flat'
 local craft_center = 'default:mese_crystal'
 
-local function register_nodelamp(basenode, suffix)
+function terumisc.register_nodelamp(basenode, suffix)
     local base_def = minetest.registered_nodes[basenode]
     if not base_def then error('basenode '..basenode..' is not defined') end
     local lamp_def = terumisc.clone_table(base_def)
@@ -21,6 +21,7 @@ local function register_nodelamp(basenode, suffix)
     }}
 end
 
+local register_nodelamp = terumisc.register_nodelamp
 register_nodelamp('default:ice', 'ice')
 register_nodelamp('default:stone', 'stone')
 register_nodelamp('default:cobble', 'cobble')
