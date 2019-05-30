@@ -53,23 +53,22 @@ walls.register(terumisc.id('wall_ice_brick'), 'Ice Brick Wall',
 
 -- ================================================================================================
 
-if minetest.global_exists('doors') then
-    doors.register(terumisc.id('door_ice'), {
-        tiles = {{name = terumisc.tex('door_ice'), backface_culling = true}},
-        description = 'Ice Door',
-        inventory_image = terumisc.tex('dinv_ice'),
-        protected = true,
-        groups = {cracky = 1, level = 1},
-        sounds = ice_sounds,
-        sound_open = 'doors_steel_door_open',
-        sound_close = 'doors_steel_door_close',
-        recipe = {
-            {brick_id, brick_id},
-            {brick_id, brick_id},
-            {brick_id, brick_id},
-        }
-    })
-end
+doors.register(terumisc.id('door_ice'), {
+    tiles = {{name = terumisc.tex('door_ice'), backface_culling = true}},
+    description = 'Ice Door',
+    inventory_image = terumisc.tex('dinv_ice'),
+    protected = true,
+    groups = {cracky = 1, level = 1},
+    sounds = ice_sounds,
+    sound_open = 'doors_steel_door_open',
+    sound_close = 'doors_steel_door_close',
+    recipe = {
+        {brick_id, brick_id},
+        {brick_id, brick_id},
+        {brick_id, brick_id},
+    }
+})
+
 -- ================================================================================================
 
 local brickblock_id = terumisc.id('ice_brick_block')

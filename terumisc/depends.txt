@@ -2,6 +2,7 @@ default
 dye
 flowers
 walls
+doors
+stairs
 trunks?
-doors?
 terumet?

@@ -19,28 +19,31 @@ local conpow_baseid = terumisc.id('con_pow')
 local conblock_baseid = terumisc.id('con_block')
 
 local FMT = string.format
-local function powder_id(dye_index)
+
+local function mix_id(dye_index)
     return FMT("%s_%s", conpow_baseid, dye.dyes[dye_index][1])
-end
-local function powder_name(dye_index)
-    return FMT("%s Concrete Mix", dye.dyes[dye_index][2])
 end
 function terumisc.concrete_block_id(dye_index)
     return FMT("%s_%s", conblock_baseid, dye.dyes[dye_index][1])
 end
-local function block_name(dye_index)
-    return FMT("%s Concrete Block", dye.dyes[dye_index][2])
+
+local NAMEFORMATS = {
+    mix="%s Concrete Mix",
+    block="%s Concrete Block",
+    door="%s Concrete Door",
+    wall="%s Concrete Wall",
+    stair="%s Concrete Stair",
+    slab="%s Concrete Slab"
+}
+
+local function make_name(name, dye_index)
+    return FMT(NAMEFORMATS[name], dye.dyes[dye_index][2])
 end
-local function door_name(dye_index)
-    return FMT("%s Concrete Door", dye.dyes[dye_index][2])
-end
-local function wall_name(dye_index)
-    return FMT("%s Concrete Wall", dye.dyes[dye_index][2])
-end
+
 local function texture(base, dye_index)
     return FMT("%s^[multiply:%s", base, CONCRETE_COLORS[dye_index])
 end
-local function powder_texture(dye_index)
+local function mix_texture(dye_index)
     return texture(terumisc.tex('con_pow'), dye_index)
 end
 local function block_texture(dye_index)
@@ -54,14 +57,14 @@ local function door_item_texture(dye_index)
 end
 
 local HARDEN_LIST = {}
-local POWDER_LIST = {}
+local MIXES_LIST = {}
 
 for index,dye_info in ipairs(dye.dyes) do
     local con_id = 'con_'..dye_info[1]
 
-    minetest.register_node(powder_id(index), {
-        description = powder_name(index),
-        tiles = {powder_texture(index)},
+    minetest.register_node(mix_id(index), {
+        description = make_name('mix', index),
+        tiles = {mix_texture(index)},
         is_ground_content = false,
         groups = {crumbly=2, falling_node=1},
         sounds = default.node_sound_sand_defaults(),
@@ -70,7 +73,7 @@ for index,dye_info in ipairs(dye.dyes) do
     local block_id = terumisc.concrete_block_id(index)
 
     minetest.register_node(block_id, {
-        description = block_name(index),
+        description = make_name('block', index),
         tiles = {block_texture(index)},
         is_ground_content = false,
         groups = {cracky = 2, level = 1},
@@ -79,9 +82,9 @@ for index,dye_info in ipairs(dye.dyes) do
 
     if index ~= 1 then
         local dye_id = "group:dye,color_"..dye_info[1]
-        local basic_powder = powder_id(1)
+        local basic_powder = mix_id(1)
         minetest.register_craft({
-            output = powder_id(index)..' 8',
+            output = mix_id(index)..' 8',
             recipe = {
                 {basic_powder, basic_powder, basic_powder},
                 {basic_powder, dye_id, basic_powder},
@@ -90,35 +93,41 @@ for index,dye_info in ipairs(dye.dyes) do
         })
     end
 
-    HARDEN_LIST[powder_id(index)] = block_id
-    terumisc.push(POWDER_LIST, powder_id(index))
+    HARDEN_LIST[mix_id(index)] = block_id
+    terumisc.push(MIXES_LIST, mix_id(index))
 
     terumisc.register_nodelamp(block_id, con_id)
 
-    walls.register(terumisc.id('wall_'..con_id), wall_name(index), block_texture(index), block_id, default.node_sound_stone_defaults())
+    walls.register(terumisc.id('wall_'..con_id), make_name('wall', index), block_texture(index), block_id, default.node_sound_stone_defaults())
 
-    if minetest.global_exists('doors') then
-        doors.register(terumisc.id('door_'..con_id), {
-            tiles = {{name = door_texture(index), backface_culling = true}},
-            description = door_name(index),
-            inventory_image = door_item_texture(index),
-            protected = true,
-            groups = {cracky = 2, level = 1},
-            sounds = default.node_sound_stone_defaults(),
-            sound_open = 'doors_steel_door_open',
-            sound_close = 'doors_steel_door_close',
-            recipe = {
-                {block_id},
-                {'doors:door_steel'},
-                {block_id},
-            }
-        })
-    end
+    doors.register(terumisc.id('door_'..con_id), {
+        tiles = {{name = door_texture(index), backface_culling = true}},
+        description = make_name('door', index),
+        inventory_image = door_item_texture(index),
+        protected = true,
+        groups = {cracky = 2, level = 1},
+        sounds = default.node_sound_stone_defaults(),
+        sound_open = 'doors_steel_door_open',
+        sound_close = 'doors_steel_door_close',
+        recipe = {
+            {block_id},
+            {'doors:door_steel'},
+            {block_id},
+        }
+    })
+
+    stairs.register_stair_and_slab(con_id, block_id,
+        {cracky = 2, level = 1},
+        {block_texture(index)},
+        make_name('stair',index), make_name('slab', index),
+        default.node_sound_stone_defaults(),
+        false
+    )
 end
 
 minetest.register_abm{
     label = 'Concrete mix hardening',
-    nodenames = POWDER_LIST,
+    nodenames = MIXES_LIST,
     neighbors = {'default:water_source', 'default:water_flowing'},
     interval = 3.0, -- Run every 3 seconds
     chance = 1, -- always
@@ -134,7 +143,7 @@ local gravel_id = 'default:gravel'
 local any_sand = 'group:sand'
 
 minetest.register_craft{
-    output = powder_id(1)..' 8',
+    output = mix_id(1)..' 8',
     recipe = {
         {any_sand, gravel_id, any_sand},
         {gravel_id, '', gravel_id},

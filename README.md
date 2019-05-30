@@ -16,11 +16,13 @@ This mod requires and depends on:
 * dye
 * flowers
 * walls
+* doors
+* stairs
+(these are all submods of the default minetest game as of 5.0)
 
 Optional dependencies:
 * terumet
 * trunks
-* doors
 
 # Overview
 
