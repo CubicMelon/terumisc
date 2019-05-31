@@ -30,10 +30,6 @@ Optional dependencies:
     * Adds Charcoal Block, which can also be burned.
 * Adds recipies to turn mushrooms and plants into dyes.
 * Adds a recipe for creating mossy cobblestone (cobblestone + moss).
-* Adds Concrete Mix / Concrete Blocks
-    * Combine Sand, Silver Sand, and Gravel to make Mix
-    * Mix blocks in contact with water harden to concrete
-    * Yes, suspiciously similar to that other crafty game
 * Adds various additional wall types:
     * Stone & Stone Brick
     * Brick
